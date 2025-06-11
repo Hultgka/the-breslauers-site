@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Breslauers - Media</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Special+Elite&display=swap" rel="stylesheet" />
+  <style>
+    .social-buttons-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 9999;
+    }
+    .social-buttons-fixed img {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .social-buttons-fixed img:hover {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+    body {
+      font-family: 'Special Elite', monospace;
+      color: #f0e6d2;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('https://i.ibb.co/9kgFHmJQ/logopsd-1-nobg.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      position: relative;
+      padding-bottom: 60px;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(27, 27, 27, 0.75);
+      z-index: -1;
+    }
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    nav {
+      background-color: #2e2e2e;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #d93e1a;
+    }
+    nav a {
+      color: #f0e6d2;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #d93e1a;
+      color: #1b1b1b;
+    }
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      font-family: 'Rock Salt', cursive;
+      color: #d93e1a;
+      margin-bottom: 20px;
+    }
+    .news-item {
+      display: flex;
+      background-color: rgba(46, 46, 46, 0.85);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      margin: 0 auto 25px auto;
+      overflow: hidden;
+      max-width: 750px;
+    }
+    .news-image {
+      flex: 0 0 180px;
+      overflow: hidden;
+    }
+    .news-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .news-content {
+      padding: 15px 20px;
+      flex: 1;
+    }
+    .news-content h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-family: 'Rock Salt', cursive;
+      color: #d93e1a;
+    }
+    .news-content p {
+      margin: 0 0 10px;
+    }
+    .news-content a {
+      color: #ff6700;
+      text-decoration: underline;
+    }
+    .video-thumbnail {
+      position: relative;
+      width: 320px;
+      max-width: 100%;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      background-color: #000;
+      margin: 15px auto;
+    }
+    .video-thumbnail img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_play_button_icon_%282013-2017%29.png') no-repeat center center;
+      background-size: contain;
+      pointer-events: none;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 0 25px rgba(255, 69, 0, 0.9);
+      border-radius: 12px;
+      background-color: #000;
+    }
+    .modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 32px;
+      color: #d93e1a;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 10;
+    }
+    .modal-close:hover {
+      color: #ff6700;
+    }
+    footer {
+      background-color: #2e2e2e;
+      text-align: center;
+      padding: 15px;
+      color: #f0e6d2;
+      border-top: 2px solid #d93e1a;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.ibb.co/ycKn9jyc/logotext1-1.jpg" alt="The Breslauers Logo" />
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="music.html">Music</a>
+    <a href="merch.html">Merch</a>
+    <a href="shows.html">Upcoming Shows</a>
+    <a href="media.html" class="active">Media</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <main>
+    <h2>Media Coverage & News</h2>
+
+    <div class="news-item">
+      <div class="news-image">
+        <img src="https://www.dropbox.com/scl/fi/34lva48bves9dwp9iymd4/475834130_122195308904188868_8681997611825080933_n.jpg?rlkey=xwnkc714u44j85ru1v5ei3oyx&st=if8mt1aq&raw=1" alt="WAJBZZ Radio Interview" />
+      </div>
+      <div class="news-content">
+        <h3>Exclusive Interview on WAJBZZ Radio</h3>
+        <p><strong>Date:</strong> April 20, 2024</p>
+        <p>The Breslauers sat down with WAJBZZ for a deep dive into their music, inspirations, and upcoming projects.</p>
+        <div class="video-thumbnail" id="videoThumbnail">
+          <img src="https://img.youtube.com/vi/8j0inFDaLfA/hqdefault.jpg" alt="Video Thumbnail" />
+          <div class="play-button"></div>
+        </div>
+        <p>Listen and watch other Breslauer Wajbzz content on <a href="https://www.youtube.com/watch?v=8J6fPWxte5A" target="_blank">WAJBZZ's YouTube</a>.</p>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-image">
+        <img src="https://kustomhead.pl/wp-content/uploads/2023/01/breslauers.jpg" alt="The Breslauers at Kustomhead" />
+      </div>
+      <div class="news-content">
+        <h3>The Breslauers at Kustomhead</h3>
+        <p><strong>Date:</strong> February 18, 2023</p>
+        <p>The Breslauers were given the great opportunity to play at the Wroclaw Kustomhead tattoo and motor convention.</p>
+        <p>Read the full article on <a href="https://kustomhead.pl/koncert-the-breslauers-na-kustomhead-2023/" target="_blank">Kustomhead.pl</a>.</p>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-image">
+        <img src="https://www.dropbox.com/scl/fi/l2vo4iwvw2g1sfks2vdhg/inline__1379379_9084.jpg?rlkey=8ol8ygs2zb6pukppt2j8rluau&st=urglfhsm&raw=1" alt="Podcast Appearance" />
+      </div>
+      <div class="news-content">
+        <h3>The Breslauers concert on the occasion of the 20th anniversary of the SGR "Paramedic"</h3>
+        <p><strong>Date:</strong> November 16, 2024</p>
+        <p>The Breslauers were invited to perform in Kolobrzeg, Poland for the 20th anniversary of the Paramedic Association. .</p>
+        <p>Listen on <a href="https://okkolobrzeg.pl/16-listopada-koncert-the-breslauers-z-okazji-20-lecia-istnienia-sgr-paramedic/" target="_blank">OK Kolobrzeg</a>.</p>
+      </div>
+    </div>
+
+    <div class="news-item" style="flex-direction: column; max-width: 750px;">
+      <!-- Removed .news-image div entirely for this section -->
+      <div class="news-content" style="padding: 15px 20px;">
+        <h3>Performances on both local and international radio</h3>
+        <p>The Breslauers had the great fortune to be featured on Radio Ram's Sunday Lunch from Wroclaw, Poland as well as Rockabilly Worldwide Mash-Up Show #464 on Rockabilly Radio based out of the UK.</p>
+        <p>Check out both  <a href="https://radioram.pl/tags/25808/Sunday-Lunch" target="_blank">RadioRam</a> and <a href="https://www.rockabillyradio.net/" target="_blank">Rockabilly Radio</a>.</p>
+        
+        <!-- Added new images here -->
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 15px; flex-wrap: wrap;">
+          <img src="https://i.ibb.co/gFBBBb3h/487982178-968569965437797-4411827589748413830-n.jpg" alt="Image 1" style="max-width: 48%; border-radius: 8px; object-fit: cover;">
+          <img src="https://i.ibb.co/gLFcvJf5/487833884-28948124014833010-4581208939588741081-n.jpg" alt="Image 2" style="max-width: 48%; border-radius: 8px; object-fit: cover;">
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW WOŚP 2023 news item -->
+    <div class="news-item">
+      <div class="news-image">
+        <img src="https://staryklasztor.com.pl/wp-content/uploads/2023/01/26-27.01.23sw-900x491.jpg" alt="WOŚP 2023 at Stary Klasztor" />
+      </div>
+      <div class="news-content">
+        <h3>WOŚP 2023 at Stary Klasztor</h3>
+        <p><strong>Date:</strong> January 28, 2023</p>
+        <p>The Breslauers participated in the 31st Finale of the Great Orchestra of Christmas Charity (WOŚP) at Stary Klasztor in Wrocław. Their performance was part of a charity event supporting medical equipment for Polish hospitals.</p>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-image">
+        <img src="https://i.ibb.co/3yx4KssK/415991415-684360313859170-1394415904508439560-n.jpg" alt="Fan Magazine Cover" />
+      </div>
+      <div class="news-content">
+        <h3>Cover Stars: FanZine Monthly</h3>
+        <p><strong>Date:</strong> October 15, 2024</p>
+        <p>The Breslauers grace the cover of FanZine Monthly with an exclusive photoshoot and feature story on their artistic evolution.</p>
+        <p>Grab your copy at <a href="https://fanzine.example.com" target="_blank">FanZine Monthly</a>.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="social-buttons-fixed">
+      <a href="https://www.instagram.com/the_breslauers/" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/instagram-new--v1.png" alt="Instagram" />
+      </a>
+      <a href="https://www.facebook.com/TheBreslauers/" target="_blank" rel="noopener" aria-label="Facebook">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/facebook-new.png" alt="Facebook" />
+      </a>
+      <a href="https://www.youtube.com/@TheBreslauers" target="_blank" rel="noopener" aria-label="YouTube">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/youtube-play.png" alt="YouTube" />
+      </a>
+    </div>
+    <p>© 2025 The Breslauers. All rights reserved.</p>
+  </footer>
+
+  <div id="videoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Video">&times;</button>
+      <iframe id="videoFrame" src="" title="Breslauers WAJBZZ Interview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    const videoThumbnail = document.getElementById('videoThumbnail');
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    const modalClose = document.querySelector('.modal-close');
+
+    videoThumbnail.addEventListener('click', () => {
+      videoFrame.src = "https://www.youtube.com/embed/8j0inFDaLfA?autoplay=1";
+      videoModal.classList.add('active');
+    });
+
+    modalClose.addEventListener('click', () => {
+      videoModal.classList.remove('active');
+      videoFrame.src = "";
+    });
+
+    // Close modal if click outside modal-content
+    videoModal.addEventListener('click', e => {
+      if (e.target === videoModal) {
+        videoModal.classList.remove('active');
+        videoFrame.src = "";
+      }
+    });
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        videoModal.classList.remove('active');
+        videoFrame.src = "";
+      }
+    });
+  </script>
+</body>
+</html>
+
