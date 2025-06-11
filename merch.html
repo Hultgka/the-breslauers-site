@@ -27,10 +27,17 @@
       z-index: -1;
     }
     header img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+  max-height: 1000px;    /* smaller height */
+  max-width: 400px;    /* limit width so it’s not too wide */
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 10px auto;   /* small margin above and below */
+}
+header {
+  background-color: white;
+  padding: 10px 0; /* optional padding top & bottom */
+}
     nav {
       background-color: #2e2e2e;
       display: flex;
