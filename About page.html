@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Breslauers - About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Special+Elite&display=swap" rel="stylesheet" />
+  <style>
+  .social-buttons-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 9999;
+}
+
+.social-buttons-fixed img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.social-buttons-fixed img:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+    body {
+      font-family: 'Special Elite', monospace;
+      color: #f0e6d2;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('https://i.ibb.co/9kgFHmJQ/logopsd-1-nobg.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      position: relative;
+      z-index: 0;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(27, 27, 27, 0.75);
+      z-index: -1;
+    }
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    nav {
+      background-color: #2e2e2e;
+      display: flex;
+      justify-content: center;
+      border-bottom: 2px solid #d93e1a;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #f0e6d2;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #d93e1a;
+      color: #1b1b1b;
+    }
+    main {
+      padding: 40px 20px 120px; /* raised bottom padding to avoid overlap with player */
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      font-family: 'Rock Salt', cursive;
+      color: #d93e1a;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2e2e2e;
+      text-align: center;
+      padding: 15px;
+      color: #f0e6d2;
+      border-top: 2px solid #d93e1a;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+    }
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+      }
+      nav a {
+        border-top: 1px solid #d93e1a;
+      }
+    }
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .about-text, .about-image {
+      flex: 1;
+      min-width: 250px;
+    }
+    .about-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Styled audio player fixed bottom-left */
+    audio {
+      position: fixed;
+      bottom: 60px; /* above footer and socials */
+      left: 20px;
+      width: 250px;
+      height: 30px;
+      background-color: rgba(217, 62, 26, 0.7);
+      box-shadow: 0 0 10px rgba(217, 62, 26, 0.8);
+      border-radius: 5px;
+      z-index: 9999;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="https://ibb.co/B5vVpMZ5" target="_blank" rel="noopener noreferrer">
+      <img src="https://i.ibb.co/ycKn9jyc/logotext1-1.jpg" alt="The Breslauers Logo" />
+    </a>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="music.html">Music</a>
+    <a href="merch.html">Merch</a>
+    <a href="shows.html">Upcoming Shows</a>
+    <a href="media.html">Media</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <main>
+    <h2>About The Breslauers</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>The Breslauers are a high-energy rockabilly band blending classic 50s, 60s and 70s vibes with a modern twist, incorporating blues, punk, rock, and much more. Founded in 2020, the band has been igniting stages with their raw sound and rebellious spirit.</p>
+        <p>Band members:</p>
+        <ul>
+          <li>Lead Vocals: Karissa Hultgren</li>
+          <li>Bass: Ali Bozkurt</li>
+          <li>Guitar: Mateusz Kowalczyk</li>
+          <li>Drums: Chaitanya Gosavi</li>
+        </ul>
+      </div>
+      <div class="about-image">
+        <img 
+          src="https://lh4.googleusercontent.com/proxy/zIS7G1f4IpxKqFuz4Ckj_HGtCNdteI5g1bQxTFNAFS0wE7F4Rg-E-Ns2kgMTHUKqzo40Uwr-tYuWbMGhGilUGOb3Kbf3ouhHYljlqtb46bg" 
+          alt="The Breslauers Band Image" 
+        />
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 The Breslauers
+  </footer>
+
+  <div class="social-buttons-fixed">
+  <a href="https://www.instagram.com/the_breslauers/" target="_blank" rel="noopener" aria-label="Instagram">
+    <img src="https://img.icons8.com/ios-filled/40/ffffff/instagram-new--v1.png" alt="Instagram" />
+  </a>
+  <a href="https://www.facebook.com/TheBreslauers/" target="_blank" rel="noopener" aria-label="Facebook">
+    <img src="https://img.icons8.com/ios-filled/40/ffffff/facebook--v1.png" alt="Facebook" />
+  </a>
+  <a href="https://open.spotify.com/artist/0UXdYQbmxW65DYw2nrvm5l" target="_blank" rel="noopener" aria-label="Spotify">
+    <img src="https://img.icons8.com/ios-filled/40/ffffff/spotify.png" alt="Spotify" />
+  </a>
+</div>
+
+<audio controls autoplay loop>
+  <source src="https://www.dropbox.com/scl/fi/2s2ka8r1zkntpspzu65nk/The-Breslauers-Sztabowa-Street-1.mp3?rlkey=fz8h5r6n050cr735jeu6wn2cm&st=t79nqj96&raw=1" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>
+
+
+
