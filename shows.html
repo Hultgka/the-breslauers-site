@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Breslauers - Upcoming Shows</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Special+Elite&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Special Elite', monospace;
+      color: #f0e6d2;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('https://i.ibb.co/9kgFHmJQ/logopsd-1-nobg.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(27, 27, 27, 0.75);
+      z-index: -1;
+    }
+
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    nav {
+      background-color: #2e2e2e;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #d93e1a;
+    }
+
+    nav a {
+      color: #f0e6d2;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: #d93e1a;
+      color: #1b1b1b;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto 100px;
+      padding: 0 20px;
+    }
+
+    h2 {
+      text-align: center;
+      font-family: 'Rock Salt', cursive;
+      color: #d93e1a;
+      margin-bottom: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgba(46, 46, 46, 0.85);
+      border: 3px solid #d93e1a;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(217, 62, 26, 0.7);
+      color: #f0e6d2;
+    }
+
+    thead tr {
+      background-color: #d93e1a;
+      color: #1b1b1b;
+      font-family: 'Rock Salt', cursive;
+      font-size: 1.3rem;
+    }
+
+    th, td {
+      padding: 15px 12px;
+      text-align: left;
+      border-bottom: 1px solid #d93e1a;
+    }
+
+    tbody tr:hover {
+      background-color: rgba(217, 62, 26, 0.4);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        display: none;
+      }
+      tbody tr {
+        margin-bottom: 20px;
+        background-color: rgba(46, 46, 46, 0.85);
+        border-radius: 12px;
+        padding: 15px;
+      }
+      tbody td {
+        border: none;
+        padding: 8px 10px;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+      }
+      tbody td::before {
+        position: absolute;
+        left: 15px;
+        top: 8px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #d93e1a;
+      }
+      tbody td:nth-of-type(1)::before { content: "Date"; }
+      tbody td:nth-of-type(2)::before { content: "Venue"; }
+      tbody td:nth-of-type(3)::before { content: "City"; }
+      tbody td:nth-of-type(4)::before { content: "Details"; }
+    }
+
+    footer {
+      background-color: #2e2e2e;
+      text-align: center;
+      padding: 15px;
+      color: #f0e6d2;
+      border-top: 2px solid #d93e1a;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .social-buttons-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 9999;
+    }
+
+    .social-buttons-fixed img {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+
+    .social-buttons-fixed img:hover {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+
+    /* Matching audio player style */
+    audio {
+      position: fixed;
+      bottom: 60px; /* above footer */
+      left: 20px;
+      width: 250px;
+      height: 30px;
+      background-color: rgba(217, 62, 26, 0.7);
+      box-shadow: 0 0 10px rgba(217, 62, 26, 0.8);
+      border-radius: 5px;
+      z-index: 9999;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.ibb.co/ycKn9jyc/logotext1-1.jpg" alt="The Breslauers Logo" />
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="music.html">Music</a>
+    <a href="merch.html">Merch</a>
+    <a href="shows.html" class="active">Upcoming Shows</a>
+    <a href="media.html">Media</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <main>
+    <h2>Upcoming Shows</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Venue</th>
+          <th>City</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>October 4, 2025</td>
+          <td>Stary Klasztor</td>
+          <td>Wrocław</td>
+          <td>Guests TBA. <a href="https://fb.me/e/6EB6OIWMd" target="_blank" rel="noopener noreferrer" style="color:#d93e1a; text-decoration: underline;">Event Page</a></td>
+        </tr>
+        <!-- Add more shows here -->
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    &copy; 2025 The Breslauers
+  </footer>
+
+  <!-- Social Media Buttons -->
+  <div class="social-buttons-fixed">
+    <a href="https://www.instagram.com/the_breslauers/" target="_blank" rel="noopener" aria-label="Instagram">
+      <img src="https://img.icons8.com/ios-filled/40/ffffff/instagram-new--v1.png" alt="Instagram" />
+    </a>
+    <a href="https://www.facebook.com/TheBreslauers/" target="_blank" rel="noopener" aria-label="Facebook">
+      <img src="https://img.icons8.com/ios-filled/40/ffffff/facebook--v1.png" alt="Facebook" />
+    </a>
+    <a href="https://open.spotify.com/artist/0UXdYQbmxW65DYw2nrvm5l" target="_blank" rel="noopener" aria-label="Spotify">
+      <img src="https://img.icons8.com/ios-filled/40/ffffff/spotify.png" alt="Spotify" />
+    </a>
+  </div>
+
+  <!-- Audio Player (matching Contact Us style) -->
+  <audio controls autoplay loop>
+    <source src="https://www.dropbox.com/scl/fi/6gzi4qjj91mavdrh2nq6p/The-Breslauers-Grandma-Titties.mp3?rlkey=nvktbpjb7279kiy8ulh8ayswk&st=y0r3v7y9&raw=1" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+</body>
+</html>
+
+
+
