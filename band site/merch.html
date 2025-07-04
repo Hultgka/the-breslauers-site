@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Breslauers - Merch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Special+Elite&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Special Elite', monospace;
+      color: #f0e6d2;
+      margin: 0;
+      padding: 0 0 120px 0; /* added bottom padding to avoid overlap with player */
+      min-height: 100vh;
+      background-image: url('https://i.ibb.co/9kgFHmJQ/logopsd-1-nobg.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(27, 27, 27, 0.75);
+      z-index: -1;
+    }
+    header img {
+      max-height: 1000px;
+      max-width: 400px;
+      width: auto;
+      height: auto;
+      display: block;
+      margin: 10px auto;
+    }
+    header {
+      background-color: white;
+      padding: 10px 0;
+    }
+    nav {
+      background-color: #2e2e2e;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #d93e1a;
+    }
+    nav a {
+      color: #f0e6d2;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #d93e1a;
+      color: #1b1b1b;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto 0 auto;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      font-family: 'Rock Salt', cursive;
+      color: #d93e1a;
+      margin-bottom: 40px;
+    }
+    .merch-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .merch-item {
+      background-color: rgba(46, 46, 46, 0.85);
+      border: 3px solid #d93e1a;
+      border-radius: 12px;
+      width: 280px;
+      box-shadow: 0 0 20px rgba(217, 62, 26, 0.7);
+      text-align: center;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+    .merch-item:hover {
+      transform: scale(1.03);
+    }
+    .merch-item img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .merch-title {
+      font-family: 'Rock Salt', cursive;
+      font-size: 1.5rem;
+      color: #d93e1a;
+      margin-bottom: 10px;
+    }
+    .merch-description {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      min-height: 70px;
+      color: #f0e6d2;
+    }
+    .order-button {
+      background-color: #d93e1a;
+      color: #1b1b1b;
+      font-family: 'Rock Salt', cursive;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 12px 0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(217, 62, 26, 0.7);
+      transition: background-color 0.3s ease;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .order-button:hover {
+      background-color: #ff6700;
+      color: #fff;
+    }
+    footer {
+      background-color: #2e2e2e;
+      text-align: center;
+      padding: 15px;
+      color: #f0e6d2;
+      border-top: 2px solid #d93e1a;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+    }
+    @media (max-width: 940px) {
+      .merch-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .social-buttons-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 9999;
+    }
+
+    .social-buttons-fixed img {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+
+    .social-buttons-fixed img:hover {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+
+    /* Custom Audio Player */
+    audio { display: none; }
+    .custom-audio-player {
+      position: fixed;
+      bottom: 60px;
+      left: 20px;
+      width: 260px;
+      background: rgba(217, 62, 26, 0.93);
+      box-shadow: 0 0 10px rgba(217, 62, 26, 0.8);
+      border-radius: 8px;
+      z-index: 9999;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .custom-audio-player button {
+      background: #d93e1a;
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+    }
+    .custom-audio-player button:hover {
+      background: #b8300a;
+    }
+    .custom-audio-player input[type="range"] {
+      flex: 1;
+      accent-color: #d93e1a;
+      height: 3px;
+      border-radius: 3px;
+      background: #f0e6d2;
+      outline: none;
+      margin: 0 6px;
+    }
+    .custom-audio-player .time {
+      font-size: 12px;
+      color: #f0e6d2;
+      width: 44px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .custom-audio-player {
+        width: 93vw;
+        left: 2vw;
+        bottom: 80px;
+        padding: 10px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.ibb.co/ycKn9jyc/logotext1-1.jpg" alt="The Breslauers Logo" />
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="music.html">Music</a>
+    <a href="merch.html" class="active">Merch</a>
+    <a href="shows.html">Upcoming Shows</a>
+    <a href="media.html">Media</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <main>
+    <h2>Official Merch</h2>
+    <div class="merch-container">
+
+      <div class="merch-item">
+        <img src="https://f4.bcbits.com/img/0039958481_36.jpg" alt="Big Time T-Shirt" />
+        <div class="merch-title">Big Time T-Shirt</div>
+        <div class="merch-description">High-quality black t-shirt featuring the iconic "Big Time" artwork — 100% cotton, available in multiple sizes.</div>
+        <a href="https://thebreslauers.bandcamp.com/merch/big-time" target="_blank" rel="noopener noreferrer" class="order-button">Order on Bandcamp</a>
+      </div>
+
+      <div class="merch-item">
+        <img src="https://f4.bcbits.com/img/0039958631_36.jpg" alt="Logo T-Shirt" />
+        <div class="merch-title">Logo T-Shirt</div>
+        <div class="merch-description">Classic black t-shirt with The Breslauers logo on the front — premium quality cotton and screen-printed design.</div>
+        <a href="https://thebreslauers.bandcamp.com/merch/logo" target="_blank" rel="noopener noreferrer" class="order-button">Order on Bandcamp</a>
+      </div>
+
+      <div class="merch-item">
+        <img src="https://f4.bcbits.com/img/0039958740_36.jpg" alt="Pick" />
+        <div class="merch-title">Pick</div>
+        <div class="merch-description">Official Breslauers guitar pick — perfect for fans and musicians alike. Durable and with a cool design.</div>
+        <a href="https://thebreslauers.bandcamp.com/merch/pick" target="_blank" rel="noopener noreferrer" class="order-button">Order on Bandcamp</a>
+      </div>
+
+      <div class="merch-item">
+        <img src="https://i.ibb.co/fY7h2Bn5/494789572-995343262760467-4921683425747936958-n.jpg" alt="Live at Breslau CD" />
+        <div class="merch-title">Live at Breslau CD</div>
+        <div class="merch-description">Live recording from 02.07.2025 when we shared the stage with the Surfers at Rampa in Wrocław. To order, message us on Facebook or email.</div>
+        <a href="mailto:Breslauerstheband@gmail.com" class="order-button">Order via Email</a>
+        <a href="https://m.me/TheBreslauers" target="_blank" rel="noopener noreferrer" class="order-button">Message on Facebook</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 The Breslauers
+  </footer>
+
+  <!-- Social Media Buttons -->
+  <div class="social-buttons-fixed">
+    <a href="https://www.instagram.com/the_breslauers/" target="_blank" rel="noopener" aria-label="Instagram">
+      <img src="https://img.icons8.com/ios-filled/40/ffffff/instagram-new--v1.png" alt="Instagram" />
+    </a>
+    <a href="https://www.facebook.com/TheBreslauers/" target="_blank" rel="noopener" aria-label="Facebook">
+      <img src="https://img.icons8.com/ios-filled/40/ffffff/facebook--v1.png" alt="Facebook" />
+    </a>
+    <a href="https://open.spotify.com/artist/0UXdYQbmxW65DYw2nrvm5l" target="_blank" rel="noopener" aria-label="Spotify">
+      <img src="https://img.icons8.com/ios-filled/40/ffffff/spotify.png" alt="Spotify" />
+    </a>
+  </div>
+
+  <!-- Custom Audio Player -->
+  <div class="custom-audio-player" oncontextmenu="return false;">
+    <button id="play-btn" aria-label="Play/Pause">&#9658;</button>
+    <input type="range" id="seek-bar" value="0" min="0" max="100">
+    <span class="time" id="audio-time">0:00</span>
+  </div>
+  <!-- Hidden audio element, only controlled by JS -->
+  <audio id="band-audio" preload="auto" loop>
+    <source src="https://www.dropbox.com/scl/fi/vh555v5bq1kzi6jbdkvxz/The-Breslauers-Real-man-1.mp3?rlkey=njpgpclmfoc5ijw8a8o9484vj&st=fhzilr88&raw=1" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+  <script>
+    const audio = document.getElementById('band-audio');
+    const playBtn = document.getElementById('play-btn');
+    const seekBar = document.getElementById('seek-bar');
+    const timeSpan = document.getElementById('audio-time');
+    // Format mm:ss
+    function formatTime(time) {
+      if (isNaN(time)) return "0:00";
+      const min = Math.floor(time / 60);
+      const sec = Math.floor(time % 60).toString().padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+    // Update seek bar and time
+    function updatePlayer() {
+      seekBar.max = audio.duration || 1;
+      seekBar.value = audio.currentTime;
+      timeSpan.textContent = formatTime(audio.currentTime);
+      playBtn.innerHTML = audio.paused ? "&#9658;" : "&#10073;&#10073;";
+    }
+    // Play/Pause toggle
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+      updatePlayer();
+    });
+    // Seek bar control
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+      updatePlayer();
+    });
+    // Update UI while playing
+    audio.addEventListener('timeupdate', updatePlayer);
+    audio.addEventListener('play', updatePlayer);
+    audio.addEventListener('pause', updatePlayer);
+    audio.addEventListener('loadedmetadata', updatePlayer);
+    // Prevent context menu and drag
+    document.querySelector('.custom-audio-player').addEventListener('contextmenu', e => e.preventDefault());
+    document.querySelector('.custom-audio-player').addEventListener('dragstart', e => e.preventDefault());
+    audio.addEventListener('contextmenu', e => e.preventDefault());
+    // Optional: block ctrl+s and cmd+s
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+      }
+    });
+    // Try to autoplay (some browsers require user interaction)
+    window.addEventListener('load', () => {
+      updatePlayer();
+      audio.play().catch(()=>{});
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
