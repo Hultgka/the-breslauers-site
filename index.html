@@ -15,19 +15,16 @@
       gap: 15px;
       z-index: 9999;
     }
-
     .social-buttons-fixed img {
       width: 40px;
       height: 40px;
       transition: transform 0.3s ease, opacity 0.3s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
     }
-
     .social-buttons-fixed img:hover {
       transform: scale(1.2);
       opacity: 0.8;
     }
-
     body {
       font-family: 'Special Elite', monospace;
       color: #f0e6d2;
@@ -51,17 +48,17 @@
       z-index: -1;
     }
     header img {
-  max-height: 1000px;    /* smaller height */
-  max-width: 400px;    /* limit width so it’s not too wide */
-  width: auto;
-  height: auto;
-  display: block;
-  margin: 10px auto;   /* small margin above and below */
-}
-header {
-  background-color: white;
-  padding: 10px 0; /* optional padding top & bottom */
-}
+      max-height: 1000px;
+      max-width: 400px;
+      width: auto;
+      height: auto;
+      display: block;
+      margin: 10px auto;
+    }
+    header {
+      background-color: white;
+      padding: 10px 0;
+    }
     nav {
       background-color: #2e2e2e;
       display: flex;
@@ -138,22 +135,56 @@ header {
       left: 0;
       z-index: 10;
     }
-
-    /* Styled audio player fixed bottom-left */
-    audio {
+    /* --- Custom Audio Player --- */
+    audio { display: none; }
+    .custom-audio-player {
       position: fixed;
-      bottom: 60px; /* above footer and social buttons */
+      bottom: 60px;
       left: 20px;
-      width: 250px;
-      height: 30px;
-      background-color: rgba(217, 62, 26, 0.7);
+      width: 260px;
+      background: rgba(217, 62, 26, 0.93);
       box-shadow: 0 0 10px rgba(217, 62, 26, 0.8);
-      border-radius: 5px;
+      border-radius: 8px;
       z-index: 9999;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .custom-audio-player button {
+      background: #d93e1a;
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       outline: none;
     }
-
-    /* Responsive fixes */
+    .custom-audio-player button:hover {
+      background: #b8300a;
+    }
+    .custom-audio-player input[type="range"] {
+      flex: 1;
+      accent-color: #d93e1a;
+      height: 3px;
+      border-radius: 3px;
+      background: #f0e6d2;
+      outline: none;
+      margin: 0 6px;
+    }
+    .custom-audio-player .time {
+      font-size: 12px;
+      color: #f0e6d2;
+      width: 44px;
+      text-align: center;
+    }
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
@@ -167,6 +198,12 @@ header {
       }
       .additional-images img {
         max-width: 100%;
+      }
+      .custom-audio-player {
+        width: 93vw;
+        left: 2vw;
+        bottom: 80px;
+        padding: 10px 4px;
       }
     }
   </style>
@@ -194,7 +231,6 @@ header {
       <p>We are The Breslauers — An international rockabiily band based in Wroclaw, Poland.</p>
       <p>Check out our latest music, grab some exclusive merch, and come see us live. We’re here to make noise and leave it all on the floor.</p>
     </div>
-
     <div class="additional-images">
       <img src="https://i.ibb.co/ycvPGMpf/331889592-706158477661916-2663424083790441116-n.jpg" alt="Band Image 1" />
       <img src="https://i.ibb.co/1tjDt9rc/325730700-569930804665858-5392037165504681896-n.jpg" alt="Band Image 2" />
@@ -218,10 +254,70 @@ header {
     </a>
   </div>
 
-  <audio controls autoplay loop>
+  <!-- Custom Audio Player -->
+  <div class="custom-audio-player" oncontextmenu="return false;">
+    <button id="play-btn" aria-label="Play/Pause">&#9658;</button>
+    <input type="range" id="seek-bar" value="0" min="0" max="100">
+    <span class="time" id="audio-time">0:00</span>
+  </div>
+  <!-- Hidden audio element, only controlled by JS -->
+  <audio id="band-audio" preload="auto" loop>
     <source src="https://www.dropbox.com/scl/fi/c3ys0fnwpnbtzlife09mi/The-Breslauers-Drunk-Decision-1.mp3?rlkey=exsqza6it92rvam1bhpeciy5v&st=ompm4fdr&raw=1" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
+  <script>
+    const audio = document.getElementById('band-audio');
+    const playBtn = document.getElementById('play-btn');
+    const seekBar = document.getElementById('seek-bar');
+    const timeSpan = document.getElementById('audio-time');
+    // Format mm:ss
+    function formatTime(time) {
+      if (isNaN(time)) return "0:00";
+      const min = Math.floor(time / 60);
+      const sec = Math.floor(time % 60).toString().padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+    // Update seek bar and time
+    function updatePlayer() {
+      seekBar.max = audio.duration || 1;
+      seekBar.value = audio.currentTime;
+      timeSpan.textContent = formatTime(audio.currentTime);
+      playBtn.innerHTML = audio.paused ? "&#9658;" : "&#10073;&#10073;";
+    }
+    // Play/Pause toggle
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+      updatePlayer();
+    });
+    // Seek bar control
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+      updatePlayer();
+    });
+    // Update UI while playing
+    audio.addEventListener('timeupdate', updatePlayer);
+    audio.addEventListener('play', updatePlayer);
+    audio.addEventListener('pause', updatePlayer);
+    audio.addEventListener('loadedmetadata', updatePlayer);
+    // Prevent context menu and drag
+    document.querySelector('.custom-audio-player').addEventListener('contextmenu', e => e.preventDefault());
+    document.querySelector('.custom-audio-player').addEventListener('dragstart', e => e.preventDefault());
+    audio.addEventListener('contextmenu', e => e.preventDefault());
+    // Optional: block ctrl+s and cmd+s
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+      }
+    });
+    // Try to autoplay (some browsers require user interaction)
+    window.addEventListener('load', () => {
+      updatePlayer();
+      audio.play().catch(()=>{});
+    });
+  </script>
 </body>
 </html>
-
